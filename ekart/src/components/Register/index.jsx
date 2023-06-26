@@ -1,9 +1,10 @@
-import { useState ,useEffect} from "react"
+import { useState, useEffect } from "react"
 import { CountryList } from "../../constants/countrylist";
+import axios from "axios";
 
 export const Register = () => {
     const [person, setPersonDetails] = useState({});
-    const [countries,setCountryList] = useState([])
+    const [countries, setCountryList] = useState([])
 
     const handleInputChanges = (e) => {
         setPersonDetails({ ...person, [e.target.name]: e.target.value });
@@ -19,7 +20,7 @@ export const Register = () => {
                     onChange={(e) => {
                         handleInputChanges(e);
                     }}>
-                        <option value="">Select Country</option>
+                    <option value="">Select Country</option>
                     {bindOptions(countries)}
                 </select>
             </div>
@@ -31,19 +32,27 @@ export const Register = () => {
         })
     }
 
-    useEffect(()=>{
-        fetch('https://restcountries.com/v2/all').then(result=>{
-            return result.json();
-        }).then(final=>{
-            console.log(final)
-            let finalList = final.map(x=>{
-                return {text:x.name,value:x.alpha2Code}
-            })
+    useEffect(() => {
+        // fetch('https://restcountries.com/v2/all').then(result=>{
+        //     return result.json();
+        // }).then(final=>{
+        //     console.log(final)
+        //     let finalList = final.map(x=>{
+        //         return {text:x.name,value:x.alpha2Code}
+        //     })
+        //     setCountryList(finalList);
+        // }).catch(ex=>{
+        //     console.log(ex);
+        // })
+        axios.get('https://restcountries.com/v2/all').then(result => {
+            let finalList = result.data.map(x => {
+                return { text: x.name, value: x.alpha2Code }
+            });
             setCountryList(finalList);
-        }).catch(ex=>{
-            console.log(ex);
-        })
-    },[])
+        }).catch(err => {
+            console.log(err);
+        });
+    }, [])
 
     const bindGender = () => {
         return (
@@ -60,7 +69,7 @@ export const Register = () => {
                         checked={person.gender == 'F'}
                         onChange={e => {
                             handleInputChanges(e)
-                        }}/>
+                        }} />
                     <label class="form-check-label" for="female">Female</label>
                 </div>
 
