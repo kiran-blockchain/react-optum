@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useState ,useEffect} from "react"
 import { CountryList } from "../../constants/countrylist";
 
 export const Register = () => {
     const [person, setPersonDetails] = useState({});
+    const [countries,setCountryList] = useState([])
 
     const handleInputChanges = (e) => {
         setPersonDetails({ ...person, [e.target.name]: e.target.value });
@@ -18,7 +19,8 @@ export const Register = () => {
                     onChange={(e) => {
                         handleInputChanges(e);
                     }}>
-                    {bindOptions(CountryList)}
+                        <option value="">Select Country</option>
+                    {bindOptions(countries)}
                 </select>
             </div>
         )
@@ -28,6 +30,20 @@ export const Register = () => {
             return (<option value={x.value}>{x.text}</option>)
         })
     }
+
+    useEffect(()=>{
+        fetch('https://restcountries.com/v2/all').then(result=>{
+            return result.json();
+        }).then(final=>{
+            console.log(final)
+            let finalList = final.map(x=>{
+                return {text:x.name,value:x.alpha2Code}
+            })
+            setCountryList(finalList);
+        }).catch(ex=>{
+            console.log(ex);
+        })
+    },[])
 
     const bindGender = () => {
         return (
@@ -51,7 +67,6 @@ export const Register = () => {
             </div>
         )
     }
-
     return (<>
         <div class="row mt-3">
             <input type='text'
