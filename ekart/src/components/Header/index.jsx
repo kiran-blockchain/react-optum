@@ -1,9 +1,14 @@
+import { useContext } from "react";
+import { ProductsContext } from "../../context/ProductsContext";
+
 export const Header = (props) => {
-   
+    const { selectedProducts, setSelectedProduct } = useContext(ProductsContext);
     const displayCompanyName = () => {
         return <a class="navbar-brand" href="#"> {props.companyName} </a>
     };
-
+    const getCartCount = ()=>{
+        return selectedProducts.length;
+    }
     return (
         <>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -18,7 +23,7 @@ export const Header = (props) => {
                                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
+                                <a class="nav-link" href="#">Cart-{getCartCount()}</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

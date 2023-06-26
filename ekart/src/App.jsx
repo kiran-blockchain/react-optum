@@ -4,6 +4,7 @@ import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { Register } from "./components/Register";
 import { ProductList } from "./components/ProductList";
+import { ProductsContext } from "./context/ProductsContext";
 
 //Always component name should start with Capital Letter
 export const App = () => {
@@ -13,30 +14,33 @@ export const App = () => {
   //Logical Area begins
   const company = 'Optum';
 
-  const [counter,setCounter] = useState(10);
+  const [selectedProducts, setSelectedProduct] = useState([]);
+  const [counter, setCounter] = useState(10);
   //counter intial value =10
   //updateCounter is a function where we will pass new value that need to be updated.
 
 
   const increment = (data) => {
     console.log(data);
-    setCounter(counter+1);
+    setCounter(counter + 1);
   }
 
   return (
     <div class="container-fluid">
-      <Header companyName={company} />
-      <div className="container mt-5">
-        <div class="row">
-          {/* <div class="col-md-4">
+      <ProductsContext.Provider value={{selectedProducts,setSelectedProduct}}>
+        <Header companyName={company} />
+        <div className="container mt-5">
+          <div class="row">
+            {/* <div class="col-md-4">
             <Counter inc={increment} />
             <h6>{counter}</h6>
             <Register/>
           </div> */}
-          <ProductList/>
+            <ProductList />
+          </div>
         </div>
-      </div>
-      <Footer />
+        <Footer />
+      </ProductsContext.Provider>
     </div>
   )
 }

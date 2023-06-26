@@ -26,9 +26,9 @@ export const Register = () => {
             </div>
         )
     }
-    const bindOptions = (list) => {
+    const bindOptions = (list,index) => {
         return list.map(x => {
-            return (<option value={x.value}>{x.text}</option>)
+            return (<option key={index} value={x.value}>{x.text}</option>)
         })
     }
 

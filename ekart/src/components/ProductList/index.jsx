@@ -5,8 +5,8 @@ import axios from "axios";
 export const ProductList = () => {
     const [products, setProducts] = useState([]);
     const list = () => {
-        return products.map(item => {
-            return <Product data={item} />
+        return products.map((item,index) => {
+            return <Product key={index} data={item} />
         });
     }
     useEffect(() => {
