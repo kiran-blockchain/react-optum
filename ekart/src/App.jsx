@@ -3,6 +3,7 @@ import { Counter } from "./components/Counter";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { Register } from "./components/Register";
+import { ProductList } from "./components/ProductList";
 
 //Always component name should start with Capital Letter
 export const App = () => {
@@ -27,11 +28,12 @@ export const App = () => {
       <Header companyName={company} />
       <div className="container mt-5">
         <div class="row">
-          <div class="col-md-4">
+          {/* <div class="col-md-4">
             <Counter inc={increment} />
             <h6>{counter}</h6>
             <Register/>
-          </div>
+          </div> */}
+          <ProductList/>
         </div>
       </div>
       <Footer />
