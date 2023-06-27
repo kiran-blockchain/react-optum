@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux"
 
 export const Counter =()=>{
-    const count = useSelector((state)=>state.counter.value);
+    const count = useSelector((state)=>state.counter);
     return(
-        <h1>Count: {count}</h1>
+        <h1>Count: {count.value}</h1>
     )
 }
