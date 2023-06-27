@@ -1,13 +1,14 @@
 import { useContext } from "react";
-import { ProductsContext } from "../../context/ProductsContext";
+import { useSelector } from "react-redux";
+
 
 export const Header = (props) => {
-    const { selectedProducts, setSelectedProduct } = useContext(ProductsContext);
+    const {cart} = useSelector(state=>state.product);
     const displayCompanyName = () => {
         return <a class="navbar-brand" href="#"> {props.companyName} </a>
     };
     const getCartCount = ()=>{
-        return selectedProducts.length;
+        return cart.length;
     }
     return (
         <>
