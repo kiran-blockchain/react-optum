@@ -2,10 +2,14 @@ import { useState } from "react";
 import { Counter } from "./components/Counter";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
-import { Register } from "./components/Register";
-import { ProductList } from "./components/ProductList";
-import { ProductsContext } from "./context/ProductsContext";
 
+import {BrowserRouter as Router} from 'react-router-dom'
+import { Route,  Routes } from "react-router-dom";
+import { Login } from "./Pages/Login";
+import { Register } from "./Pages/Register";
+import { Products } from "./Pages/Products";
+import { Cart } from "./Pages/Cart";
+import { NoMatch } from "./Pages/NoMatch";
 //Always component name should start with Capital Letter
 export const App = () => {
   //Divide component into two parts
@@ -26,22 +30,21 @@ export const App = () => {
   }
 
   return (
-    <div class="container-fluid">
-      <ProductsContext.Provider value={{selectedProducts,setSelectedProduct}}>
+      <div className="container-fluid">
+        <Router>
         <Header companyName={company} />
-        <div className="container mt-5">
-          <div class="row">
-            {/* <div class="col-md-4">
-            <Counter inc={increment} />
-            <h6>{counter}</h6>
-            <Register/>
-          </div> */}
-            <ProductList />
-          </div>
-        </div>
-        <Footer />
-      </ProductsContext.Provider>
-    </div>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="*" element={<NoMatch />} />
+          </Routes>
+          </Router>
+          <Footer />
+      </div>
+      
   )
 }
 
