@@ -10,6 +10,8 @@ import { Register } from "./Pages/Register";
 import { Products } from "./Pages/Products";
 import { Cart } from "./Pages/Cart";
 import { NoMatch } from "./Pages/NoMatch";
+import {ProductList} from "./components/ProductList"
+import { NewProduct } from "./Pages/NewProduct";
 //Always component name should start with Capital Letter
 export const App = () => {
   //Divide component into two parts
@@ -37,7 +39,10 @@ export const App = () => {
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/products" element={<Products />} />
+            <Route path="/products" element={<Products />}>
+              <Route path=":id" element={<ProductList/>}/>
+              <Route path="new" element={<NewProduct/>}/>
+            </Route>
             <Route path="/cart" element={<Cart />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
