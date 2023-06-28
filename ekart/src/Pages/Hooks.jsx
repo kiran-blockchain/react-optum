@@ -11,6 +11,9 @@ export const HooksComponent = () => {
     const addNew = useCallback(() => {
         setProducts((i) => [...i, "new item"]);
     }, [products])
+    // const addNew = ()=>{
+    //     setProducts((i) => [...i, "new item"]);
+    // }
 
     return (<div>
         <div>

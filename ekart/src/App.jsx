@@ -13,6 +13,7 @@ import { NoMatch } from "./Pages/NoMatch";
 import {ProductList} from "./components/ProductList"
 import { NewProduct } from "./Pages/NewProduct";
 import { HooksComponent } from "./Pages/Hooks";
+import { MemoHook } from "./Pages/MemoHook";
 //Always component name should start with Capital Letter
 export const App = () => {
   //Divide component into two parts
@@ -47,6 +48,7 @@ export const App = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="*" element={<NoMatch />} />
             <Route path="hooks" element={<HooksComponent />} />
+            <Route path="memo" element={<MemoHook />} />
           </Routes>
           </Router>
           <Footer />
