@@ -1,19 +1,9 @@
 //useCallback
 
 import { useCallback, useState } from "react";
+import { ChildComponent } from "../components/ChildComponent";
 
-const ChildComponent = ({ list, addNew }) => {
-    console.log('Child Rendering');
-    return (
-        <div>
-            <h4>List of Products</h4>
-            {list.map((item, index) => {
-                return <p key={index}>{item}</p>
-            })}
-            <button class="btn btn-primary" onClick={addNew}>Add New</button>
-        </div>
-    )
-}
+
 
 export const HooksComponent = () => {
     const [count, setCount] = useState(0);
@@ -23,7 +13,14 @@ export const HooksComponent = () => {
     }, [products])
 
     return (<div>
+        <div>
+        <h6>Count: {count}</h6>
+        <button class="btn btn-warning" onClick={e=>{
+            setCount((c)=>c+1)
+        }}>+</button>
+        </div>
         <ChildComponent list={products} addNew={addNew} />
+       
     </div>)
 
 }
