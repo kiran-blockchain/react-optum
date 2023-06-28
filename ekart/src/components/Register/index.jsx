@@ -1,17 +1,22 @@
 import { useState, useEffect } from "react"
 import { CountryList } from "../../constants/countrylist";
 import axios from "axios";
+import { useFetch } from "../../hooks/useFetch";
 
-export const Register = () => {
+export const RegisterComponent = () => {
     const [person, setPersonDetails] = useState({});
-    const [countries, setCountryList] = useState([])
+    //const [countries, setCountryList] = useState([])
+    const [countries, isLoading, hasError] = useFetch({ url: 'https://restcountries.com/v2/all', method: 'get' })
 
     const handleInputChanges = (e) => {
         setPersonDetails({ ...person, [e.target.name]: e.target.value });
     };
 
+    const loader = () => { return isLoading ? "Fetching Countries....." : "" }
+    const error = () => { return hasError != null ? hasError : "" }
     const bindCountries = () => {
         return (
+
             <div class="row mt-3">
                 <select id="country"
                     className="form-control"
@@ -26,33 +31,17 @@ export const Register = () => {
             </div>
         )
     }
-    const bindOptions = (list,index) => {
-        return list.map(x => {
-            return (<option key={index} value={x.value}>{x.text}</option>)
-        })
+    const bindOptions = (list = [], index) => {
+        if (list != null) {
+            
+            return list.map(x => {
+                return (<option key={index} value={x.alpha2Code}>{x.name}</option>)
+            })
+        }
+
     }
 
-    useEffect(() => {
-        // fetch('https://restcountries.com/v2/all').then(result=>{
-        //     return result.json();
-        // }).then(final=>{
-        //     console.log(final)
-        //     let finalList = final.map(x=>{
-        //         return {text:x.name,value:x.alpha2Code}
-        //     })
-        //     setCountryList(finalList);
-        // }).catch(ex=>{
-        //     console.log(ex);
-        // })
-        axios.get('https://restcountries.com/v2/all').then(result => {
-            let finalList = result.data.map(x => {
-                return { text: x.name, value: x.alpha2Code }
-            });
-            setCountryList(finalList);
-        }).catch(err => {
-            console.log(err);
-        });
-    }, [])
+
 
     const bindGender = () => {
         return (
@@ -113,6 +102,8 @@ export const Register = () => {
                 }}
             />
         </div>
+        {loader()}
+        {error()}
         {bindCountries()}
         {bindGender()}
 
